@@ -15,7 +15,19 @@ function renderTodos(){
         let todoElement = document.createElement('li');
         let todoText = document.createTextNode(todo);
 
+        let linkElement = document.createElement('a');
+        linkElement.setAttribute('href','#');
+
+        //Recupera posição do todo no array e lança na função deleteTodo
+        //por meio do evento onclick
+        let pos = todos.indexOf(todo);
+        linkElement.setAttribute('onclick','deleteTodo('+pos+')');
+        //final do bloco
+
+        let linkText = document.createTextNode(' Excluir');
+        linkElement.appendChild(linkText);
         todoElement.appendChild(todoText);
+        todoElement.appendChild(linkElement);
         listElement.appendChild(todoElement);
     }
 }
@@ -29,5 +41,9 @@ function addTodos(){
     inputElement.value = '';
     renderTodos();
 }
-
 buttonElement.onclick = addTodos;
+
+function deleteTodo(pos){
+    todos.splice(pos,1);
+    renderTodos();
+}
